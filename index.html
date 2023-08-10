@@ -1,0 +1,42 @@
+<html>
+<head>
+<title> Live CC App By Aamesh </title>
+<style>
+	* { font-size:130%; }
+	h1 { background-color:black; color:white;
+		width:50%; border-radius:30px; }
+	body { background-color: #95de9d ;}
+</style>
+
+<script>
+	function convert()
+	{
+		event.preventDefault();
+		let amt = document.getElementById("amt");
+		let ans = document.getElementById("ans");
+		
+		let url = "https://api.exchangerate-api.com/v4/latest/USD";
+		fetch(url)
+		.then(res => res.json())
+		.then(data => { let dollar = data["rates"]["INR"]
+						let a = parseFloat(amt.value)
+						let r = dollar * a;
+						ans.innerHTML = r.toFixed(2) + "₹"; })
+		.catch(err => ans.innerHTML = "issue" + err);
+	}
+</script>
+</head>
+
+<body>
+<center>
+<h1> Live Currency Convertor App  </h1>
+	<form onsubmit="convert()">
+		<input type="number" step="any" placeholder="Enter a amount in $$" id="amt"/>
+		<br><br>
+		<input type="submit" value="Convert"/>
+	</form>
+	
+<h1 id="ans"> </h1>
+</center>
+</body>
+</html>
